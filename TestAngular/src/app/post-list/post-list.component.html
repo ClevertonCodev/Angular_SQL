@@ -1,0 +1,46 @@
+<app-layout title="Pagina Posts">
+  <div  class=" min-vh-100">
+    <div class="input-group mb-3">
+      <div class="form-outline">
+        <input
+          type="text"
+          class="form-control mt-3"
+          placeholder="Pesquisar por título..."
+          [(ngModel)]="searchText"
+          (input)="searchPosts()"
+        />
+      </div>
+    </div>
+    <div *ngFor="let post of postsToDisplay">
+      <h4 role="button" (click)="showPostDetails(post.id)">{{ post.title }}</h4>
+      <p>{{ post.body }}</p>
+      <hr />
+    </div>
+  </div>
+  <div >
+    <ul class="pagination justify-content-center">
+      <li
+        class="page-item me-2"
+        role="button"
+        [ngClass]="{ disabled: currentPage === 1 }"
+      >
+        <a class="page-link" (click)="prevPage()">Anterior</a>
+      </li>
+      <li
+        class="page-item me-2 pointer"
+        role="button"
+        *ngFor="let page of pagesArray()"
+        [ngClass]="{ active: currentPage === page }"
+      >
+        <a class="page-link" (click)="goToPage(page)">{{ page }}</a>
+      </li>
+      <li
+        class="page-item me-2 pointer"
+        role="button"
+        [ngClass]="{ disabled: currentPage === totalPages() }"
+      >
+        <a class="page-link" (click)="nextPage()">Próxima</a>
+      </li>
+    </ul>
+  </div>
+</app-layout>
